@@ -1,0 +1,33 @@
+{
+  "name": "application",
+  "version": "1.0.0",
+  "description": "Application",
+  "scripts": {
+    "start": "set NODE_ENV=development && electron ./electron-package  --cwd C:\\",
+    "postinstall": "install-app-deps",
+    "watch": "webpack --watch",
+    "dist-win-x64": "build --win --x64 --dir --projectDir ./electron-package",
+    "dist-win-ia32": "build --win --ia32 --projectDir ./electron-package",
+    "dist-linux-x64": "build --linux --x64 --projectDir ./electron-package",
+    "dist-linux-ia32": "build --linux --ia32 --projectDir ./electron-package",
+    "dist-mac-x64": "build --mac --x64 --projectDir ./electron-package",
+    "dist-mac-ia32": "build --mac --ia32 --projectDir ./electron-package"
+  },
+  "repository": "",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "@types/node": "^6.0.42",
+    "devtron": "^1.4.0",
+    "electron": "^1.6.1",
+    "electron-builder": "^14.5.3",
+    "ts-loader": "^2.0.1",
+    "typescript": "^2.3.0-dev.20170308",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "@types/electron": "^1.4.33",
+    "electron-window-state": "^4.0.2"
+  }
+}

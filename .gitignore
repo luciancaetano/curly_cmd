@@ -1,0 +1,9 @@
+*bundle.js
+node_modules
+electron-package/node_modules
+electron-package/dist
+.vscode
+npm-debug.log
+npm-debug.log.*
+electron-package/npm-debug.log
+electron-package/npm-debug.log.*

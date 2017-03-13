@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>CurlyCmd</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="assets/css/bootstrap-slade.css" rel="stylesheet">
+  <link href="assets/css/jquery.scrolling-tabs.css" rel="stylesheet">
+  <link href="assets/css/xterm.css" rel="stylesheet">
+  <link href="assets/css/app.css" rel="stylesheet">
+  <link href="assets/css/sweetalert2.css" rel="stylesheet">
+  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="window-border">
+    <h1 class="title window-drag">Curly.CMD</h1>
+    <div class="btn-group">
+      <div class="window-button minimize-button">
+        <i class="fa fa-window-minimize"></i>
+      </div>
+      <div class="window-button maximize-button">
+        <i class="fa fa-window-maximize"></i>
+      </div>
+      <div class="window-button unmaximize-button">
+        <i class="fa fa-window-restore"></i>
+      </div>
+      <div class="window-button close-button">
+        <i class="fa fa-window-close"></i>
+      </div>
+    </div>
+  </div>
+  <div class="btn-add-tab" id="add-tab"><a>+</a></div>
+  <div class="btn-config-tab">
+    <a id="openConfigModal"><i class="glyphicon glyphicon-cog" style="padding-top: 5px;"></i></a>
+  </div>
+  <div class="app">
+    <ul class="nav nav-tabs" id="cliTabs">
+
+    </ul>
+    <div class="terminals" id="consoles-container">
+
+    </div>
+
+    <!-- Config Modal -->
+    <div class="modal fade" id="configModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 style="color:#fff;"><span class="glyphicon glyphicon-cog"></span><lang>Configurations</lang></h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="shell"><span class="glyphicon glyphicon-console"></span><lang>ShellCommand</lang></label>
+              <input type="text" class="form-control" id="shell" placeholder="Shell Command.." name="shell">
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="" name="askclose"><lang>AskWhenClosingTab</lang></label>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="" name="minimizeTray"><lang>CloseToTrayWhenMinimize</lang></label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default btn-default pull-left" id="closeConfigModal"><span class="glyphicon glyphicon-remove"></span> <lang>Cancel<lang></button>
+            <button class="btn btn-default btn-default pull-right" id="saveConfigModal"><span class="glyphicon glyphicon-floppy-save"></span> <lang>Save<lang></button>
+            <button class="btn btn-default btn-default pull-right" id="openAbout"><span class="glyphicon glyphicon-question-sign"></span> <lang>AboutCurlyCMD<lang></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Config Modal -->
+  <!-- About Window -->
+  <div class="about-window" style="display: none">
+    <div class="content">
+      <img src="appicon.ico" class="appIcon">
+      <p id="appName"></p>
+      <p id="appVersion"></p>
+      <p id="electronVersion" class="commonVersion">Electron: <span></span></p>
+      <p id="nodeVersion" class="commonVersion">Node: <span></span></p>
+      <p id="chromeVersion" class="commonVersion">Chrome: <span></span></p>
+      <button id="closeAboutDialog">Close</button>
+    </div>
+  </div>
+  <!-- About Window -->
+
+
+  <script type="text/javascript">
+    window.$ = window.jQuery = require('./assets/js/jquery.min.js'); // import jquery
+    window.__devtron = {
+      require: require,
+      process: process
+    };
+    window.e_require = require;
+    //delete window.require;
+    //delete window.exports;
+    //delete window.module;
+  </script>
+  <script type="text/javascript" src="./bundle.js"></script>
+</body>
+
+</html>

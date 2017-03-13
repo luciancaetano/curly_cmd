@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": "",
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "rootDir": "./src",
+    "mapRoot": "./src",
+    "module": "amd",
+    "moduleResolution": "node",
+    "outDir": "./electron-package/bundle",
+    "sourceMap": true,
+    "target": "es5",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/declarations.d.ts"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "electron-package"
+  ]
+}
