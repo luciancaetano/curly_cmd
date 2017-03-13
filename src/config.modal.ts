@@ -4,6 +4,7 @@ let app:any = e_require('electron').remote.app;
 import {TabsManager} from './tabsmanager';
 import {translate} from './messages';
 
+
 export class ConfigModal{
     private fs:any;
     private ini:any;
@@ -13,7 +14,9 @@ export class ConfigModal{
     private configFile:string;
 
     public tray:any = null;
-
+    /**
+     * Constructor
+     */
     constructor(){
         this.fs = e_require('fs');
         this.ini = e_require('ini');
@@ -43,7 +46,9 @@ export class ConfigModal{
         this.configDefaults();
         console.log(`Configuration file : ${this.configFile}`);
     }
-
+    /**
+     * Make default configurations
+     */
     private configDefaults(){
         this.config = {
             general: {
@@ -61,12 +66,17 @@ export class ConfigModal{
             this.config.general.lang = 'en';
         }
     }
-
+    /**
+     * Store configuration
+     */
     public storeConfig(){
         let dataStr = this.ini.stringify(this.config);
         this.fs.writeFileSync(this.configFile, dataStr, 'utf-8');
     }
-
+    /**
+     * Show config modals
+     * @param e 
+     */
     public openConfigModal(e?:any){
         $('#configModal').modal({
             backdrop: true,
@@ -77,17 +87,49 @@ export class ConfigModal{
         $('#configModal [name=askclose]').prop('checked', this.config.general.AlwaysAskWhenClosingTab);
         $('#configModal [name=askclose]').prop('checked', this.config.general.AlwaysAskWhenClosingTab);
         $('#configModal [name=minimizeTray]').prop('checked', this.config.general.closeToTrayWhenMinimize);
-    }
-
+        $('#configModal [name=language]').val(this.config.general.lang);
+    
+}
+    /**
+     * Save configuratio modal
+     * @param e 
+     */
     public saveConfigModal(e?:any){
         this.config.general.shellCommand = $('#configModal [name=shell]').val();
         this.config.general.AlwaysAskWhenClosingTab = $('#configModal [name=askclose]').is(':checked');
         this.config.general.closeToTrayWhenMinimize = $('#configModal [name=minimizeTray]').is(':checked');
+        this.config.general.lang = $('#configModal [name=language]').val();
         this.storeConfig();
-        this.closeConfigModal();    
+        this.closeConfigModal();   
+        this.doTranslate();
     }
-
+    /**
+     * 
+     * @param e Close config modal
+     */
     public closeConfigModal(e?:any){
         $('#configModal').modal('hide');
+    }
+     /**
+     * Execute dom translation
+     */
+    doTranslate(){
+        $('lang').each((i:number, it:any) => {
+            let text = $(it).text() + '';
+            if(text.trim().length > 0){
+                if(translate[this.config.general.lang]){
+                    if(translate[this.config.general.lang][text.trim()] !== undefined){
+                        $(it).text(translate[this.config.general.lang][text.trim()]);
+                    }
+                }else{
+                    console.warn(`Invalid language "${translate[this.config.general.lang]}"`);
+                    if(translate['en'][text.trim()] !== undefined){
+                        it.text(translate['en'][text.trim()]);
+                    }else{
+                        console.warn(`Invalid language entry ${text.trim()}`);
+                    }
+                }
+            }
+        });
     }
 }

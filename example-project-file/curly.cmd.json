@@ -1,0 +1,10 @@
+[
+	{
+		"name": "Project Watch",
+		"command":"npm run watch"
+	},
+	{
+		"name": "Project Start",
+		"command":"npm run start"
+	}
+]

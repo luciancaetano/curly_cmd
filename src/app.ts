@@ -34,11 +34,18 @@ class Application extends TabsManager{
     constructor(){
         super();
 
-        let argv = e_require('electron').remote.getGlobal('args');
-        
+        let argv:any = e_require('electron').remote.getGlobal('args');
+        let path:any = e_require('path');
+        let fs:any = e_require('fs');
+
         if(argv.cwd !== undefined){
             if((argv.cwd+'').length > 0){
-                this.createCWDTab(argv.cwd);
+                let projectFile = path.normalize(argv.cwd + '/curly.cmd.json');
+                if(fs.existsSync(projectFile)){
+                    this.loadProject(argv.cwd, projectFile);
+                }else{
+                    this.createCWDTab(argv.cwd);
+                }
             }else{
                 this.addTab();
             }
@@ -49,6 +56,37 @@ class Application extends TabsManager{
         this.bindShortcuts();
         this.bindWindowEvents();
         this.doTranslate();
+    }
+    /**
+     * Load project file
+     * @param cwd 
+     */
+    public loadProject(cwd:string, projectFile:string){
+        let fs = e_require('fs');
+        try{
+            let content = fs.readFileSync(projectFile, 'utf-8');
+            let json:Array<any> = JSON.parse(content);
+            json.forEach((tab:any) => {
+                if(tab.name !== undefined && tab.command){
+                    this.createCurlyProjectTab(cwd, tab.command, tab.name);
+                }else{
+                    swal({
+                        title: translate[this.config.general.lang].ProjectError,
+                        text: translate[this.config.general.lang].ErrorInvalidFile,
+                        type: 'error'
+                    }).then(() => {
+                    }).catch(() => { });
+                }
+            });
+        }catch(e){
+            swal({
+                title: translate[this.config.general.lang].ProjectError,
+                text: translate[this.config.general.lang].ErrorInvalidFile,
+                type: 'error'
+            }).then(() => {
+            }).catch(() => { });
+        }
+        
     }
     /**
      * 
@@ -120,7 +158,9 @@ class Application extends TabsManager{
             }
         });
     }
-
+    /**
+     * Initialize tray handling
+     */
     initializeTray(){
         let electron = e_require('electron').remote;
         let currentWindow = electron.getCurrentWindow();
@@ -153,7 +193,9 @@ class Application extends TabsManager{
         this.tray.setContextMenu(contextMenu);
         this.tray.on('double-click', () => currentWindow.show());
     }
-
+    /**
+     * Show app quit message
+     */
     tryQuitApp(){
         swal({
             title: translate[this.config.general.lang].AreYouSure,
@@ -168,22 +210,33 @@ class Application extends TabsManager{
             electron.app.exit(0);
         }).catch(()=>{});  
     }
-
+    /**
+     * Minimize a window
+     */
     minimizeWindow(){
         e_require('electron').remote.getCurrentWindow().minimize();
     }
+    /**
+     * Maximize a window
+     */
     maximizeWindow(){
         e_require('electron').remote.getCurrentWindow().maximize();
     }
-
+    /**
+     * Umaximize window
+     */
     unMaximizeWindow(){
         e_require('electron').remote.getCurrentWindow().unmaximize();
     }
-
+    /**
+     * Close window
+     */
     closeWindow(){
         this.tryQuitApp();
     }
-
+    /**
+     * Bind events to window
+     */
     bindWindowEvents(){
         let CurrentWindow = e_require('electron').remote.getCurrentWindow();
 
@@ -210,26 +263,6 @@ class Application extends TabsManager{
             this.tryQuitApp();
             return false;
         };
-    }
-
-    doTranslate(){
-        $('lang').each((i:number, it:any) => {
-            let text = $(it).text() + '';
-            if(text.trim().length > 0){
-                if(translate[this.config.general.lang]){
-                    if(translate[this.config.general.lang][text.trim()] !== undefined){
-                        $(it).text(translate[this.config.general.lang][text.trim()]);
-                    }
-                }else{
-                    console.warn(`Invalid language "${translate[this.config.general.lang]}"`);
-                    if(translate['en'][text.trim()] !== undefined){
-                        it.text(translate['en'][text.trim()]);
-                    }else{
-                        console.warn(`Invalid language entry ${text.trim()}`);
-                    }
-                }
-            }
-        });
     }
 }
 

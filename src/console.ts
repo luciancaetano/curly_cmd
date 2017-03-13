@@ -50,12 +50,23 @@ export class Console implements IConsoleTab{
     uid:any;
     lang:string;
     cwd:string;
+    commandLine:string;
     private bash:string;
     private cwDir:string;
     
-
+    /**
+     * Constructor
+     * @param uid 
+     * @param bash 
+     * @param title 
+     * @param element 
+     * @param onDestroy 
+     * @param cwDir 
+     * @param lang 
+     * @param cwd 
+     */
     constructor(uid:string, bash:string, title:string, 
-    element:any, onDestroy:any, cwDir:string, lang:string, cwd:string){
+    element:any, onDestroy:any, cwDir:string, lang:string, cwd:string, commandLine:string){
         this.uid = uid;
         this.title = title;
         this.bash = bash;
@@ -64,6 +75,7 @@ export class Console implements IConsoleTab{
         this.cwDir = cwDir ? cwDir : null;
         this.lang = lang;
         this.cwd = cwd;
+        this.commandLine = commandLine;
 
         Terminal.loadAddon('fit'); 
 
@@ -77,13 +89,17 @@ export class Console implements IConsoleTab{
             this.bindTerminals();
         }
         this.fit();
-        this.bindKeys();
+        //this.bindKeys();
 
         setInterval(() => {
             this.fit();
         }, 3000);
-    }
 
+        this.pty.write(this.commandLine+ "\n");
+    }
+    /**
+     * Bind keys
+     */
     private bindKeys(){
         this.terminal.on('keydown', (e:KeyboardEvent) => {
             if (e.ctrlKey && (e.keyCode == 78)) {
@@ -110,7 +126,9 @@ export class Console implements IConsoleTab{
             }
         });
     }
-
+    /**
+     * Create XTermJs Instance in DOM
+     */
     private createXTerm(){
         this.terminal = new Terminal({
             cursorBlink: true,
@@ -119,7 +137,9 @@ export class Console implements IConsoleTab{
         });
         this.terminal.open(this.element);
     }
-
+    /**
+     * Create shell instance
+     */
     private createPty(){
         try {
             let app:any = e_require('electron').remote.app;
@@ -141,7 +161,9 @@ export class Console implements IConsoleTab{
             console.warn(e.message);
         }
     }
-
+    /**
+     * Bind terminal events
+     */
     private bindTerminals(){
         this.terminal.on('data', (data) => {
             if(this.pty !== undefined && this.pty !== null){
@@ -171,26 +193,38 @@ export class Console implements IConsoleTab{
             this.fit();
         });
     }
-
+    /**
+     * Execute focus
+     */
     public focus(){
         if(this.terminal !== undefined && this.terminal !== null){
             this.terminal.focus();
         }
     }
-
+    /**
+     * Fit terminal to container
+     */
     public fit(){
         if(this.terminal !== undefined && this.terminal !== null){
             this.terminal.fit();
         }
     }
-
+    /**
+     * Hode console
+     */
     public hide(){
         $(this.element).hide();
     }
-
+    /**
+     * Show console
+     */
     public show(){
         $(this.element).show();
     }
+    /**
+     * Finalizes and destroy terminals instances
+     * @param exitCode 
+     */
     public finalizeTerminal(exitCode?:any){
         exitCode = exitCode || 0;
         if(this.terminal !== undefined && this.terminal !== null){

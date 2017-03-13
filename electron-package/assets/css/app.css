@@ -50,17 +50,19 @@ body {
     -webkit-user-select: none;
 }
 .btn-add-tab a{
-    font-size: 26px;
+    font-size: 18px;
     padding: 3px;
+    padding-left: 5px;
     background: #859c0c;
     border-radius: 0px;
     cursor: pointer;
     text-align: center;
     width: 37px;
-    height: 42px;
+    height: 28px;
     display: block;
-    color:#fff;
+    color: #fff;
     -webkit-user-select: none;
+    font-weight: bold;
 }
 
 .btn-config-tab {
@@ -75,13 +77,13 @@ body {
 .btn-config-tab a{
     font-size: 16px;
     padding: 3px;
-    padding-top: 9px;
+    padding-top: 2px;
     background: #272b30;
     border-radius: 0px;
     cursor: pointer;
     text-align: center;
     width: 37px;
-    height: 42px;
+    height: 27px;
     display: block;
     color: #fff;
     -webkit-user-select: none;
@@ -113,7 +115,7 @@ body {
 
 .terminals{
     position: absolute; 
-    top: 77px; 
+    top: 64px; 
     bottom: 0; 
     left: 0; 
     right: 0;
@@ -129,7 +131,11 @@ body {
 }
 #cliTabs li > a{
     transition: linear background-color 0.1s, linear width 0.1s;
+    padding: 3px 15px;
 }
+
+
+
 #cliTabs li a > i{
     font-size: 12px;
     margin-left: 8px;

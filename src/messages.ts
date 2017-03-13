@@ -1,6 +1,7 @@
 
 export let translate = {
     en: {
+        ProjectError: "Configuration file error",
         AreYouSure : "Are You Sure ?",
         CloseWindowWarn : "By closing this program all processes by tabs will be closed",
         confirmButtonText: 'OK',
@@ -19,9 +20,13 @@ export let translate = {
                 it may be that the command does not exist or is not valid.`
         },
         CloseTabWarn: "By closing this tab all processes by the same will be closed",
-        ChangeTabName: "Change tab name !"
+        ChangeTabName: "Change tab name !",
+        SelectLanguage: 'Language:',
+        RequiresRestart: 'Requires restart',
+        ErrorInvalidFile: 'File "curly.cmd.json" is invalid or inaccessible.'
     },
     ptBr: {
+        ProjectError: "Erro de arquivo de configuração.",
         AreYouSure : "Tem certeza ?",
         CloseWindowWarn : "Ao sair da aplicação todos os processos executados nas abas serão fechados.",
         confirmButtonText: 'OK',
@@ -40,6 +45,9 @@ export let translate = {
                 Pode ser que este arquivo não exista nas variáveis de ambiente do sistema.`
         },
         CloseTabWarn: "Fechar esta aba resultará no término do comando executado na mesma.",
-        ChangeTabName: "Alterar o nome da Aba !"
+        ChangeTabName: "Alterar o nome da Aba !",
+        SelectLanguage: 'Linguagem:',
+        RequiresRestart: 'Requer reinicialização.',
+        ErrorInvalidFile: 'O arquivo "curly.cmd.json" é inválido ou inacessível'
     },
 }

@@ -33,6 +33,11 @@ var config = {
     resolve: {
         extensions: ['.ts', '.js']
     },
+    plugins:[
+        new webpack.optimize.UglifyJsPlugin({
+            compress: { warnings: false }
+        })
+    ]
     //devtool: 'inline-source-map'
 }
 

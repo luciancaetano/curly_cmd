@@ -43,20 +43,48 @@ export class TabsManager extends ConfigModal{
                 }
                 this.config.perfs.lastOpenPath = dirPath;
                 this.storeConfig();
-                this.createTab(el, uid, dirPath);
-                
+                this.createTab(el, uid, dirPath, null);
             });
         }else{
-            this.createTab(el, uid, null);
+            let argv = e_require('electron').remote.getGlobal('args');
+        
+            if(argv.cwd !== undefined){
+                if((argv.cwd+'').length > 0){
+                    this.createTab(el, uid, argv.cwd, null);
+                }else{
+                    this.createTab(el, uid, null, null);
+                }
+            }else{
+                this.createTab(el, uid, null, null);
+            }
         } 
     }
-
+    /**
+     * Create a tab in working dir
+     * @param cwdir 
+     */
     public createCWDTab(cwdir){
         let uid = 'con' + Math.floor((Math.random() * 999999) + 111111);
         let el = this.tabRender(translate[this.config.general.lang].NewTab, uid).addClass('active');
-        this.createTab(el, uid, cwdir);
+        this.createTab(el, uid, cwdir, null);
     }
-    public createTab(el, uid, cwdir){
+    /**
+     * Create a curly project tab
+     * @param cwdir 
+     * @param initialCommand 
+     */
+    public createCurlyProjectTab(cwdir, initialCommand, tabName){
+        let uid = 'con' + Math.floor((Math.random() * 999999) + 111111);
+        let el = this.tabRender(tabName, uid).addClass('active');
+        this.createTab(el, uid, cwdir, initialCommand);
+    }
+    /**
+     * 
+     * @param el Create a tab
+     * @param uid 
+     * @param cwdir 
+     */
+    public createTab(el, uid, cwdir, command){
         this.tabContainer.append(el);
         this.consolesContainer.append(this.consoleRender(uid));
         this.toggleTab(uid);
@@ -68,16 +96,23 @@ export class TabsManager extends ConfigModal{
             this.handleDestroyTerminal.bind(this),
             cwdir,
             this.config.general.lang,
-            this.config.perfs.lastOpenPath
+            this.config.perfs.lastOpenPath,
+            command
         ); 
     }
-    
+    /**
+     * Removes tabs and elements
+     * @param uid 
+     */
     public handleDestroyTerminal(uid:string){
         $(`#cliTabs #tab_${uid}`).remove();
         delete this.consoles[uid];
         $(`#consoles-container #${uid}`).remove();
     }
-
+    /**
+     * Handle click close tab
+     * @param e 
+     */
     public handleCloseTabClick(e){
         if(!this.config.general.AlwaysAskWhenClosingTab){
             this.proccessCloseclick(e);
@@ -95,13 +130,20 @@ export class TabsManager extends ConfigModal{
                 this.proccessCloseclick(e);
             }).catch(()=>{});        
     }
+    /**
+     * Proccess close click
+     * @param e 
+     */
     proccessCloseclick(e:any){
         let target = $(e.target);
         let uid = target.data('console');
 
         this.closeTab(uid);
     }
-
+    /**
+     * Close a tab
+     * @param uid 
+     */
     public closeTab(uid:string){
 
         $(`#cliTabs #tab_${uid}`).remove();
@@ -115,7 +157,10 @@ export class TabsManager extends ConfigModal{
             this.consoles[nextShowTab].focus();
         }
     }
-
+    /**
+     * Handle tab click
+     * @param e 
+     */
     public handleTabClick(e){
         let target = $(e.target);
         this.toggleTab(target.data('console'));
@@ -124,14 +169,20 @@ export class TabsManager extends ConfigModal{
             tab.focus();
         }
     }
-
+    /**
+     * Toggle a tab
+     * @param uid 
+     */
     public toggleTab(uid:string){
         $('#cliTabs >li').removeClass('active');
         $(`#consoles-container .terminal-container`).hide();
         $(`#cliTabs >li#tab_${uid}`).addClass('active');
         $(`#consoles-container #${uid}`).show();
     }
-
+    /**
+     * Handle tab db-click
+     * @param e 
+     */
     public changeNameClickHandle(e){
         let target = $(e.target);
         let uid = target.data('console');
@@ -154,15 +205,26 @@ export class TabsManager extends ConfigModal{
             this.changeTabName(uid, newName);
         }).catch(()=>{});
     }
+    /**
+     * Cnage tab name
+     * @param uid 
+     * @param name 
+     */
     public changeTabName(uid:number, name:string){
         this.consoles[uid].title = name;
         $(`#cliTabs #tab_${uid} a > span`).text(name);
     }
-
+    /**
+     * 
+     */
     public buildtabs(){
         
     }
-
+    /**
+     * Tab rendering function
+     * @param name 
+     * @param tabid 
+     */
     private tabRender(name:string, tabid:string){
         return $(`<li id="tab_${tabid}" class="console-tab" data-console="${tabid}">
             <a href="javascript:;" data-console="${tabid}">
@@ -170,7 +232,10 @@ export class TabsManager extends ConfigModal{
             </a>
         </li>`);
     }
-
+    /**
+     * Console rendering function
+     * @param id 
+     */
     private consoleRender(id:string){
         return $(`<div id="${id}" class="terminal-container"></div>`);
     }
