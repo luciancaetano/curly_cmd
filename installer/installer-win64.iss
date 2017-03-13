@@ -427,7 +427,7 @@ Root: HKCU; Subkey: Software\DotCurly\CurlyCMD; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\DotCurly; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\DotCurly\CurlyCMD; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\DotCurly\CurlyCMD\Settings; ValueType: string; ValueName: Path; ValueData: {app}; Flags: uninsdeletekey
-Root: HKCR; Subkey: Directory\Background\shell\CurlyCMD; ValueType: expandsz; ValueData: Open with C&urly.CMD; Flags: uninsdeletekey
+Root: HKCR; Subkey: Directory\Background\shell\CurlyCMD; ValueType: expandsz; ValueData: C&urly.CMD Here; Flags: uninsdeletekey
 Root: HKCR; Subkey: Directory\Background\shell\CurlyCMD; ValueType: expandsz; ValueName: icon; ValueData: {app}\curly-cmd.exe; Flags: uninsdeletekey
 Root: HKCR; Subkey: Directory\Background\shell\CurlyCMD\command; ValueType: expandsz; ValueData: "{app}\curly-cmd.exe 1 --cwd ""%V"""; Flags: uninsdeletekey
 [Dirs]
