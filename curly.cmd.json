@@ -5,7 +5,7 @@
 	},
 	{
 		"name": "Project Start",
-		"command":"npm run start"
+		"command":" "
 	},
 	{
 		"name": "Package",

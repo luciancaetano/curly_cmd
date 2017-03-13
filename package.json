@@ -1,9 +1,9 @@
 {
   "name": "application",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Application",
   "scripts": {
-    "start": "set NODE_ENV=development && electron ./electron-package  --cwd C:\\",
+    "start": "set NODE_ENV=development && electron ./electron-package  --cwd C:\\ --dev true",
     "postinstall": "install-app-deps",
     "watch": "webpack --watch",
     "build-win" : "npm run dist-win-x64 && npm run dist-win-32",

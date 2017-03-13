@@ -5,7 +5,7 @@ const app = electron.app;
 
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
-//process.env.NODE_ENV = 'development';
+
 process.env.NODE_ENV = 'production';
 const path = require('path');
 const url = require('url');
@@ -16,13 +16,16 @@ let mainWindow;
 
 const commandLineArgs = require('command-line-args');
 global.args = commandLineArgs([
-    {name: 'cwd', alias: 'c', type: String }
+    {name: 'cwd', alias: 'c', type: String },
+    {name: 'dev', alias: 'd', type: Boolean }
 ]);
 
 process.on('uncaughtException', (error) => {
     app.exit(0);
 });
 
+
+process.env.NODE_ENV = global.args.dev ? 'development': 'production';
 
 function createWindow () {
 

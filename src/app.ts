@@ -1,6 +1,6 @@
 
 e_require('./assets/js/bootstrap.min.js');
-e_require('./assets/js/jquery.scrolling-tabs.min.js');
+e_require('./assets/js/jquery.scrolltabs.js');
 
 import {IConfig, IConsoleTab, CB, IBinding} from './interfaces';
 import {TabsManager} from './tabsmanager';
@@ -67,7 +67,7 @@ class Application extends TabsManager{
             let content = fs.readFileSync(projectFile, 'utf-8');
             let json:Array<any> = JSON.parse(content);
             json.forEach((tab:any) => {
-                if(tab.name !== undefined && tab.command){
+                if(tab.name !== undefined && tab.command !== undefined){
                     this.createCurlyProjectTab(cwd, tab.command, tab.name);
                 }else{
                     swal({

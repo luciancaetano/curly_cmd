@@ -94,8 +94,10 @@ export class Console implements IConsoleTab{
         setInterval(() => {
             this.fit();
         }, 3000);
-
-        this.pty.write(this.commandLine+ "\n");
+        // Prevent run null command
+        if(this.commandLine !== null){
+            this.pty.write(this.commandLine+ "\n");
+        }
     }
     /**
      * Bind keys
