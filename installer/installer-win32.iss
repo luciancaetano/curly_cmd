@@ -23,6 +23,7 @@ WizardImageBackColor=clOlive
 WizardSmallImageFile=WizModernSmallImage-IS.bmp
 SetupIconFile=appicon.ico
 LanguageDetectionMethod=none
+OutputBaseFilename=curly.cmd-setup-win32.exe
 
 [Languages]
 Name: en; MessagesFile: compiler:Default.isl
