@@ -5,8 +5,8 @@ const app = electron.app;
 
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
-process.env.NODE_ENV = 'development';
-//process.env.NODE_ENV = 'production';
+//process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'production';
 const path = require('path');
 const url = require('url');
 

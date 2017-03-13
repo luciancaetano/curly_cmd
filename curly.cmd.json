@@ -1,0 +1,14 @@
+[
+	{
+		"name": "Project Watch",
+		"command":"npm run watch"
+	},
+	{
+		"name": "Project Start",
+		"command":"npm run start"
+	},
+	{
+		"name": "Package",
+		"command":"cd ./electron-package"
+	}
+]

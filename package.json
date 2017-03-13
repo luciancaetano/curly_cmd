@@ -1,6 +1,6 @@
 {
   "name": "application",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Application",
   "scripts": {
     "start": "set NODE_ENV=development && electron ./electron-package  --cwd C:\\",
