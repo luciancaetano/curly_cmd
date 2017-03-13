@@ -1,7 +1,7 @@
-*bundle.js
 node_modules
 electron-package/node_modules
 electron-package/dist
+electron-package/dist/bundle.js
 .vscode
 npm-debug.log
 npm-debug.log.*

@@ -7,7 +7,7 @@
     "postinstall": "install-app-deps",
     "watch": "webpack --watch",
     "dist-win-x64": "build --win --x64 --dir --projectDir ./electron-package",
-    "dist-win-ia32": "build --win --ia32 --projectDir ./electron-package",
+    "dist-win-32": "build --win --ia32 --dir --projectDir ./electron-package",
     "dist-linux-x64": "build --linux --x64 --projectDir ./electron-package",
     "dist-linux-ia32": "build --linux --ia32 --projectDir ./electron-package",
     "dist-mac-x64": "build --mac --x64 --projectDir ./electron-package",

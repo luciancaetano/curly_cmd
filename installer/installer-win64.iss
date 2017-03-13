@@ -10,7 +10,7 @@ ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 LicenseFile=license.txt
 AppID={{950B2ADE-733E-4029-A9EF-E2563F7E0F28}
-DisableStartupPrompt=false
+DisableStartupPrompt=true
 AllowNoIcons=true
 AlwaysUsePersonalGroup=true
 InternalCompressLevel=ultra
@@ -19,8 +19,20 @@ MinVersion=0,6.0.6000
 AppCopyright=Lucian Caetano
 AppVerName=1.0
 AllowCancelDuringInstall=false
+UserInfoPage=true
+WizardImageFile=WizModernImage-IS.bmp
+WizardImageBackColor=clOlive
+WizardSmallImageFile=WizModernSmallImage-IS.bmp
+SetupIconFile=appicon.ico
+LanguageDetectionMethod=none
 
 [Languages]
+Name: en; MessagesFile: compiler:Default.isl
+Name: ptbr; MessagesFile: compiler:Languages\BrazilianPortuguese.isl
+
+[Messages]
+en.BeveledLabel=English
+ptbr.BeveledLabel=Portugês Brasileiro
 
 [Files]
 Source: ..\electron-package\dist\win-unpacked\curly-cmd.exe; DestDir: {app}
